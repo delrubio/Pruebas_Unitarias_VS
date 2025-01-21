@@ -27,11 +27,16 @@ public class gestionBancaria
 
     public void realizarReintegro(double cantidad)
     {
-
-        if (cantidad <= 0)
+        if (cantidad < 0)
         {
-            mostrarError(ERR_CANTIDAD_INDICADA_NEGATIVA);
+            throw new ArgumentOutOfRangeException("La cantidad indicada es negativa");
         }
+
+        if (cantidad > saldo)
+        {
+            throw new ArgumentOutOfRangeException("Saldo insuficiente");
+        }
+
         else
         {
             if (cantidad > 0 && saldo > cantidad)
@@ -48,15 +53,15 @@ public class gestionBancaria
 
     public void realizarIngreso(double cantidad)
     {
-
         if (cantidad < 0)
         {
-            mostrarError(ERR_CANTIDAD_INDICADA_NEGATIVA);
+            throw new ArgumentOutOfRangeException("La cantidad indicada es negativa");
         }
+
         else
         {
             if (cantidad > 0)
-                saldo -= cantidad;
+                saldo += cantidad;
         }
       
     }
